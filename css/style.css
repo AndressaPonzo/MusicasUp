@@ -1,0 +1,264 @@
+:root {
+  --bg: #120f1a;
+  --bg-soft: #17131f;
+  --surface: #1e1828;
+  --surface-hover: #271f34;
+  --gold: #cda45e;
+  --gold-soft: #8f7a4f;
+  --lavender: #b9adda;
+  --text: #ece7f5;
+  --text-dim: #a89fc0;
+  --line: #2c2438;
+  --radius: 14px;
+  --serif: "Cormorant Garamond", serif;
+  --sans: "Inter", sans-serif;
+}
+
+* { box-sizing: border-box; }
+
+html { scroll-behavior: smooth; }
+
+body {
+  margin: 0;
+  background:
+    radial-gradient(ellipse 80% 50% at 50% -10%, rgba(205,164,94,0.10), transparent),
+    var(--bg);
+  color: var(--text);
+  font-family: var(--sans);
+  line-height: 1.5;
+  min-height: 100vh;
+}
+
+a { color: inherit; text-decoration: none; }
+
+/* ---------- Header (index) ---------- */
+
+.site-header {
+  padding: 64px 24px 32px;
+  text-align: center;
+}
+
+.wordmark {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 14px;
+}
+
+.wordmark h1 {
+  font-family: var(--serif);
+  font-weight: 600;
+  font-size: clamp(2rem, 5vw, 3rem);
+  letter-spacing: 0.02em;
+  margin: 0;
+  background: linear-gradient(180deg, #f3e6c8, var(--gold) 70%);
+  -webkit-background-clip: text;
+  background-clip: text;
+  color: transparent;
+}
+
+.laurel {
+  width: 64px;
+  height: 22px;
+  flex-shrink: 0;
+}
+.laurel path {
+  fill: none;
+  stroke: var(--gold-soft);
+  stroke-width: 1.4;
+  stroke-linecap: round;
+}
+
+.tagline {
+  margin: 10px 0 0;
+  color: var(--text-dim);
+  font-size: 0.95rem;
+  letter-spacing: 0.03em;
+}
+
+/* ---------- Busca ---------- */
+
+.search-wrap {
+  max-width: 560px;
+  margin: 0 auto;
+  padding: 0 24px 28px;
+}
+
+.search-input {
+  width: 100%;
+  background: var(--surface);
+  border: 1px solid var(--line);
+  border-radius: 999px;
+  padding: 12px 20px;
+  font-family: var(--sans);
+  font-size: 0.95rem;
+  color: var(--text);
+  outline: none;
+  transition: border-color 0.18s ease, background 0.18s ease;
+}
+
+.search-input::placeholder {
+  color: var(--text-dim);
+}
+
+.search-input:focus {
+  border-color: var(--gold-soft);
+  background: var(--surface-hover);
+}
+
+/* remove o "x" nativo do Chrome/Safari pra ficar consistente com o resto do design */
+.search-input::-webkit-search-cancel-button {
+  -webkit-appearance: none;
+}
+
+/* ---------- Song list ---------- */
+
+.song-list {
+  max-width: 560px;
+  margin: 0 auto;
+  padding: 0 24px 80px;
+  display: flex;
+  flex-direction: column;
+  gap: 2px;
+}
+
+.loading, .empty, .error {
+  text-align: center;
+  color: var(--text-dim);
+  padding: 40px 0;
+  font-family: var(--serif);
+  font-size: 1.2rem;
+}
+
+.song-row {
+  display: flex;
+  align-items: center;
+  gap: 14px;
+  padding: 16px 18px;
+  border-radius: var(--radius);
+  border-bottom: 1px solid var(--line);
+  transition: background 0.15s ease, padding-left 0.15s ease;
+}
+
+.song-row:first-child {
+  border-top: 1px solid var(--line);
+}
+
+.song-row:hover, .song-row:focus-visible {
+  background: var(--surface);
+  padding-left: 24px;
+  outline: none;
+}
+
+.song-row-note {
+  color: var(--gold-soft);
+  font-size: 0.95rem;
+  flex-shrink: 0;
+}
+
+.song-row-title {
+  font-family: var(--serif);
+  font-weight: 600;
+  font-size: 1.1rem;
+  color: var(--text);
+}
+
+.song-row:hover .song-row-title {
+  color: var(--gold);
+}
+
+/* ---------- Song page ---------- */
+
+.song-header {
+  max-width: 720px;
+  margin: 0 auto;
+  padding: 48px 24px 20px;
+  text-align: center;
+}
+
+.back-link {
+  color: var(--text-dim);
+  font-size: 0.85rem;
+  letter-spacing: 0.03em;
+}
+.back-link:hover { color: var(--gold); }
+
+.song-header h1 {
+  font-family: var(--serif);
+  font-weight: 600;
+  font-size: clamp(1.8rem, 4.5vw, 2.6rem);
+  margin: 18px 0 10px;
+  color: var(--text);
+}
+
+.legend {
+  font-size: 0.8rem;
+  color: var(--text-dim);
+  letter-spacing: 0.02em;
+}
+.dot {
+  display: inline-block;
+  width: 8px;
+  height: 8px;
+  border-radius: 50%;
+  margin-right: 4px;
+}
+.dot-en { background: var(--text); }
+.dot-pt { background: var(--gold); }
+
+.lyrics {
+  max-width: 640px;
+  margin: 0 auto;
+  padding: 20px 24px 100px;
+}
+
+.lyric-pair {
+  padding: 14px 0;
+  border-bottom: 1px solid var(--line);
+}
+.lyric-pair:last-child { border-bottom: none; }
+
+.lyric-en {
+  margin: 0 0 5px;
+  font-size: 1.08rem;
+  color: var(--text);
+}
+
+.lyric-pt {
+  margin: 0;
+  font-size: 0.98rem;
+  font-style: italic;
+  color: var(--gold);
+  opacity: 0.9;
+}
+
+.music-break {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  margin: 22px 0;
+  color: var(--gold-soft);
+}
+.music-break::before, .music-break::after {
+  content: "";
+  flex: 1;
+  height: 1px;
+  background: var(--line);
+}
+.music-break span {
+  font-size: 0.9rem;
+}
+
+/* ---------- Footer ---------- */
+
+.site-footer {
+  text-align: center;
+  padding: 30px 24px 60px;
+  color: var(--text-dim);
+  font-size: 0.85rem;
+}
+
+@media (max-width: 480px) {
+  .site-header { padding: 48px 20px 24px; }
+  .song-row { padding: 14px 14px; }
+}
