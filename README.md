@@ -105,6 +105,24 @@ site público com letras completas — mesmo com fins de estudo — pode
 infringir os direitos do autor/gravadora. Se quiser evitar esse risco,
 considere:
 
+### subir musicas
+1
+Escolha o slug do arquivo
+Pegue o nome da música, deixe em minúsculo, sem espaço/acento (ex: Nova Música → nova-musica). Renomeie o .txt pra nova-musica.txt.
+2
+Suba o .txt em lyrics/
+No repositório, dentro da pasta lyrics/, clique em Add file → Upload files e suba só esse .txt novo.
+3
+Adicione a entrada no songs.json
+Abra data/songs.json no GitHub → lápis (Edit) → adicione uma linha tipo { "title": "Nova Música", "slug": "nova-musica" } na lista → Commit changes.
+4
+Confira visualmente no site (sem gastar tokens)
+Espere 1-2 min e abra a música no site publicado. Passe o olho rápido: se as linhas em inglês e português parecem fazer sentido juntas do começo ao fim, está bom. Não precisa comparar palavra por palavra.
+5
+Só se algo parecer errado
+Só nesse caso me chame — e cole apenas o trecho problemático (não a letra inteira), tipo: 'na música X, a partir de tal linha, a tradução parece embaralhada'. Isso me deixa corrigir só aquele ponto, sem precisar reprocessar a música toda.
+
+
 - manter o repositório **privado** no GitHub (funciona em contas Pro, ou
   você pode simplesmente cloná-lo localmente sem publicar o Pages), ou
 - usar o site apenas localmente (rodando o servidor local acima), sem
