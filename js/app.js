@@ -34,6 +34,7 @@ async function loadSongs() {
     const res = await fetch("data/songs.json");
     if (!res.ok) throw new Error("songs.json não encontrado");
     allSongs = await res.json();
+    allSongs.sort((a, b) => a.title.localeCompare(b.title, "pt-BR", { sensitivity: "base" }));
 
     if (!allSongs.length) {
       list.innerHTML = `<p class="empty">Nenhuma música cadastrada ainda. Adicione uma entrada em data/songs.json.</p>`;
