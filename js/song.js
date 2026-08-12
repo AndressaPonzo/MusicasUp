@@ -132,4 +132,109 @@ async function loadSong() {
   }
 }
 
+// ---------- Rolagem automática (teleprompter) ----------
+// Não há como sincronizar de verdade com o Spotify (exigiria integração
+// com a API deles), então isso é uma rolagem suave e ajustável: você
+// informa quanto tempo falta pra música acabar e a letra sobe sozinha
+// nesse ritmo. Dá pra acelerar/desacelerar durante a reprodução pra
+// recalibrar se ficar fora de sincronia.
+
+function parseDurationToMs(str) {
+  const parts = String(str).trim().split(":").map((p) => p.trim()).filter(Boolean);
+  let seconds = 0;
+  if (parts.length === 2) {
+    seconds = (parseInt(parts[0], 10) || 0) * 60 + (parseInt(parts[1], 10) || 0);
+  } else if (parts.length === 1) {
+    seconds = parseInt(parts[0], 10) || 0;
+  }
+  return seconds > 0 ? seconds * 1000 : null;
+}
+
+function formatMsToInput(ms) {
+  const totalSeconds = Math.round(ms / 1000);
+  const m = Math.floor(totalSeconds / 60);
+  const s = totalSeconds % 60;
+  return `${m}:${String(s).padStart(2, "0")}`;
+}
+
+function setupAutoScroll() {
+  const bar = document.getElementById("scroll-bar");
+  const toggleBtn = document.getElementById("scroll-toggle");
+  const restartBtn = document.getElementById("scroll-restart");
+  const slowerBtn = document.getElementById("scroll-slower");
+  const fasterBtn = document.getElementById("scroll-faster");
+  const durationInput = document.getElementById("scroll-duration");
+  if (!bar || !toggleBtn) return;
+
+  const state = { playing: false, rate: 0, rafId: null, lastTs: null };
+
+  function getMaxScroll() {
+    return Math.max(0, document.documentElement.scrollHeight - window.innerHeight);
+  }
+
+  function stopScrolling() {
+    state.playing = false;
+    if (state.rafId) cancelAnimationFrame(state.rafId);
+    state.rafId = null;
+    toggleBtn.textContent = "▶";
+    toggleBtn.title = "Tocar rolagem automática";
+  }
+
+  function step(ts) {
+    if (state.lastTs === null) state.lastTs = ts;
+    const dt = ts - state.lastTs;
+    state.lastTs = ts;
+    const maxScroll = getMaxScroll();
+    const next = window.scrollY + state.rate * dt;
+    if (next >= maxScroll) {
+      window.scrollTo({ top: maxScroll, behavior: "auto" });
+      stopScrolling();
+      return;
+    }
+    window.scrollTo({ top: next, behavior: "auto" });
+    state.rafId = requestAnimationFrame(step);
+  }
+
+  function startScrolling() {
+    const ms = parseDurationToMs(durationInput.value);
+    if (!ms) {
+      durationInput.focus();
+      return;
+    }
+    const remaining = getMaxScroll() - window.scrollY;
+    state.rate = remaining > 0 ? remaining / ms : 0;
+    state.playing = true;
+    state.lastTs = null;
+    toggleBtn.textContent = "⏸";
+    toggleBtn.title = "Pausar rolagem automática";
+    state.rafId = requestAnimationFrame(step);
+  }
+
+  function adjustDurationField(deltaSeconds) {
+    const current = parseDurationToMs(durationInput.value) || 210000;
+    durationInput.value = formatMsToInput(Math.max(5000, current + deltaSeconds * 1000));
+  }
+
+  toggleBtn.addEventListener("click", () => {
+    if (state.playing) stopScrolling();
+    else startScrolling();
+  });
+
+  restartBtn.addEventListener("click", () => {
+    stopScrolling();
+    window.scrollTo({ top: 0, behavior: "auto" });
+  });
+
+  fasterBtn.addEventListener("click", () => {
+    if (state.playing) state.rate *= 1.15;
+    else adjustDurationField(-10);
+  });
+
+  slowerBtn.addEventListener("click", () => {
+    if (state.playing) state.rate /= 1.15;
+    else adjustDurationField(10);
+  });
+}
+
 loadSong();
+setupAutoScroll();
