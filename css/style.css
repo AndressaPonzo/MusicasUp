@@ -172,7 +172,7 @@ a { color: inherit; text-decoration: none; }
 .song-header {
   max-width: 720px;
   margin: 0 auto;
-  padding: 48px 24px 20px;
+  padding: 84px 24px 20px;
   text-align: center;
 }
 
@@ -256,6 +256,76 @@ a { color: inherit; text-decoration: none; }
   padding: 30px 24px 60px;
   color: var(--text-dim);
   font-size: 0.85rem;
+}
+
+/* ---------- Barra de rolagem automática ---------- */
+
+.scroll-bar {
+  position: fixed;
+  left: 50%;
+  top: 16px;
+  bottom: auto;
+  transform: translateX(-50%);
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  padding: 8px 10px;
+  background: rgba(30, 24, 40, 0.85);
+  backdrop-filter: blur(10px);
+  -webkit-backdrop-filter: blur(10px);
+  border: 1px solid var(--line);
+  border-radius: 999px;
+  box-shadow: 0 8px 24px rgba(0, 0, 0, 0.35);
+  z-index: 20;
+}
+
+.scroll-btn {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 36px;
+  height: 36px;
+  border: none;
+  border-radius: 50%;
+  background: var(--surface);
+  color: var(--text);
+  font-size: 1rem;
+  cursor: pointer;
+  transition: background 0.15s ease, color 0.15s ease;
+}
+
+.scroll-btn:hover {
+  background: var(--surface-hover);
+  color: var(--gold);
+}
+
+.scroll-btn-play {
+  background: var(--gold);
+  color: var(--bg);
+  font-size: 0.9rem;
+}
+
+.scroll-btn-play:hover {
+  background: var(--gold);
+  opacity: 0.9;
+  color: var(--bg);
+}
+
+.scroll-duration {
+  width: 56px;
+  text-align: center;
+  background: var(--bg-soft);
+  border: 1px solid var(--line);
+  border-radius: 999px;
+  padding: 8px 4px;
+  font-family: var(--sans);
+  font-size: 0.85rem;
+  color: var(--text);
+  outline: none;
+}
+
+.scroll-duration:focus {
+  border-color: var(--gold-soft);
 }
 
 @media (max-width: 480px) {
