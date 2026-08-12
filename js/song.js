@@ -166,7 +166,7 @@ function setupAutoScroll() {
   const durationInput = document.getElementById("scroll-duration");
   if (!bar || !toggleBtn) return;
 
-  const state = { playing: false, rate: 0, rafId: null, lastTs: null };
+  const state = { playing: false, rate: 0, rafId: null, lastTs: null, hasStarted: false };
 
   function getMaxScroll() {
     return Math.max(0, document.documentElement.scrollHeight - window.innerHeight);
@@ -201,6 +201,10 @@ function setupAutoScroll() {
       durationInput.focus();
       return;
     }
+    if (!state.hasStarted) {
+      window.scrollTo({ top: 0, behavior: "auto" });
+      state.hasStarted = true;
+    }
     const remaining = getMaxScroll() - window.scrollY;
     state.rate = remaining > 0 ? remaining / ms : 0;
     state.playing = true;
@@ -222,6 +226,7 @@ function setupAutoScroll() {
 
   restartBtn.addEventListener("click", () => {
     stopScrolling();
+    state.hasStarted = false;
     window.scrollTo({ top: 0, behavior: "auto" });
   });
 
