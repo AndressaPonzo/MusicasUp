@@ -43,6 +43,14 @@
     "slug": "grateful-heart"
   },
 { "title": "Becoming Her",
-  "slug": "becoming-her" }
-  
-]
+  "slug": "becoming-her" 
+},
+    { "title": "I Want It All",
+    "slug": "i-want-it-all"
+    },
+{ "title": "I Am Wealthy",
+  "slug": "i-am-wealthy"
+},
+{ "title": "I Speak Love", 
+  "slug": "i-speak-love" }
+  ]
