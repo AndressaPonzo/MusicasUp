@@ -20,6 +20,22 @@
   <div id="lyrics" class="lyrics" aria-live="polite"></div>
 </main>
 
+<div class="scroll-bar" id="scroll-bar">
+  <button id="scroll-restart" class="scroll-btn" title="Voltar ao topo">⤒</button>
+  <button id="scroll-toggle" class="scroll-btn scroll-btn-play" title="Tocar rolagem automática">▶</button>
+  <input
+    type="text"
+    id="scroll-duration"
+    class="scroll-duration"
+    value="3:30"
+    inputmode="numeric"
+    aria-label="Tempo restante da música (min:seg)"
+    title="Tempo restante da música (min:seg)"
+  >
+  <button id="scroll-slower" class="scroll-btn" title="Mais devagar">−</button>
+  <button id="scroll-faster" class="scroll-btn" title="Mais rápido">+</button>
+</div>
+
 <footer class="site-footer">
   <a class="back-link" href="index.html">← voltar para todas as músicas</a>
 </footer>
