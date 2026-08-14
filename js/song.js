@@ -231,13 +231,13 @@ function setupAutoScroll() {
   });
 
   fasterBtn.addEventListener("click", () => {
-    if (state.playing) state.rate *= 1.15;
-    else adjustDurationField(-10);
+    if (state.playing) state.rate *= 1.3;
+    else adjustDurationField(-20);
   });
 
   slowerBtn.addEventListener("click", () => {
-    if (state.playing) state.rate /= 1.15;
-    else adjustDurationField(10);
+    if (state.playing) state.rate /= 1.3;
+    else adjustDurationField(20);
   });
 }
 
